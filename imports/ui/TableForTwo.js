@@ -34,7 +34,7 @@ class TableForTwo extends Component{
         	status: "ready",
         	count: 0,
         	gameId: null,
-        	renderDealer: true,
+        	renderDealer: false,
         	renderplayer1: false,
         	renderplayer1score: false,
         	renderplayer2: false,
@@ -54,15 +54,46 @@ class TableForTwo extends Component{
 		this.shuffle(this.state.deck);
 	}
 
-	componentDidMount() {
-		console.log("58")
-    	console.log(this.props.match);
+	  componentDidMount() {
 	    this.getCurrentGame();
 	  }
 
 	  componentDidUpdate() {
-	
+	  		console.log("64");
+    		console.log(this.props.match); 
+    		if(typeof this.props.match[this.props.match.length - 1].dealer !== 'undefined'
+    			&& this.props.match[this.props.match.length - 1].dealer !== this.state.dealer){
+	    		this.setState({
+	    			dealer: this.props.match[this.props.match.length - 1].dealer,
+	    			renderDealer: true
+	    		})
+	    		//if(this.state.dealer.length > 0) this.changeGame(this.state.dealer, this.state.player1, this.state.player2);
+	    		console.log(68);	
+	    		console.log(this.state.dealer);
+    		}
+    		if(typeof this.props.match[this.props.match.length - 1].player1 !== 'undefined'
+    			&& this.props.match[this.props.match.length - 1].player1 !== this.state.player1){
+	    		this.setState({
+	    			player1: this.props.match[this.props.match.length - 1].player1,
+	    			renderDealer: true
+	    		})
+	    		console.log(81);	
+	    		console.log(this.state.player1);
+    		}
+    		if(typeof this.props.match[this.props.match.length - 1].player2 !== 'undefined'
+    			&& this.props.match[this.props.match.length - 1].player2 !== this.state.player2){
+	    		this.setState({
+	    			player2: this.props.match[this.props.match.length - 1].player2,
+	    			renderDealer: true
+	    		})
+	    		console.log(89);	
+	    		console.log(this.state.player2);
+    		}
 	  }
+		
+    	
+    	
+    	
 	shuffle(deck){
 		
 		var len = deck.length, temporaryValue, randomIndex;
@@ -119,6 +150,7 @@ class TableForTwo extends Component{
 	        if (match) this.setState({ gameId: match._id });
 	        console.log(this.state.gameId);
 	        this.renderDealerCard();
+	        //this.changeGame(this.state.dealer, this.state.player1, this.state.player2);
 	      });
 	    }
 	  }
@@ -138,7 +170,8 @@ class TableForTwo extends Component{
 		
 		console.log(this.state.dealer);
 		this.renderPlayer1button();
-		this.changeGame(this.state.dealer, [], []);
+		this.renderPlayer2button();
+		this.changeGame(this.state.dealer, this.state.player1, this.state.player2);
 
 	}
 	renderPlayer1button(){
@@ -190,6 +223,7 @@ class TableForTwo extends Component{
             deck : deck,
             status1 : newStatus
         });
+        this.changeGame(this.state.dealer,this.state.player1, this.state.player2);
 	}
 	handleHitButt2(){
 		var deck = this.state.deck;
@@ -207,6 +241,7 @@ class TableForTwo extends Component{
             deck : deck,
             status2 : newStatus
         });
+        this.changeGame(this.state.dealer,this.state.player1, this.state.player2);
 	}
 	handleDealButt1(){
 		
@@ -269,7 +304,8 @@ class TableForTwo extends Component{
             deck : deck,
             status1 : (dealerScore < 21 || dealerHasCharlie) ? 'lose' : 'win'
         });
-        this.renderPlayer2button();
+        //this.renderPlayer2button();
+        this.changeGame(this.state.dealer,this.state.player1, this.state.player2);
 	}
 	handleStandButt2(){
 		var dealerHand = this.state.dealer;
@@ -301,14 +337,17 @@ class TableForTwo extends Component{
             
             status1 : (dealerScore > player1Score || dealerHasCharlie) ? 'lose' : 'win',
             status2 : (dealerScore > player2Score || dealerHasCharlie) ? 'lose' : 'win'
-	})}
+		})
+		this.changeGame(this.state.dealer,this.state.player1, this.state.player2);
+	}
     changeGame(dealer, player1, player2){
+    	
     	Meteor.call("matches.update", this.state.gameId, dealer, player1, player2);
     }
 	render(){
-		const renderDealer = this.state.renderDealer;
-		const renderplayer1 = this.state.renderplayer1;
-		const renderplayer2 = this.state.renderplayer2;
+		const renderDealer = (typeof this.state.dealer !== 'undefined' && this.state.dealer.length > 0) ? true : false;
+		const renderplayer1 = this.renderPlayer1button;
+		const renderplayer2 = this.renderPlayer2button;
 		return (
 			<div>
 				<div>
@@ -377,14 +416,10 @@ class TableForTwo extends Component{
 }
 
 export default withTracker(() => {
-  const handle = Meteor.subscribe("matches");
+  Meteor.subscribe("matches");
   console.log("307")
   return {
     match: Matches.find({}).fetch(),
-    ready: handle.ready(),
-    if(match) {
-    	console.log(312);
-    	console.log(match)
-    }
+    
   };
 })(TableForTwo);
