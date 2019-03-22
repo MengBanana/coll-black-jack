@@ -27,3 +27,6 @@ Then run meteor
 
 ## License
 Licensed under the [MIT License](LICENSE).
+
+## Author
+Megan and Zhou
