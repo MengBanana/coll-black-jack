@@ -17,7 +17,7 @@ export default class Outcome extends React.Component{
                 return (<div className="alert alert-info" role="alert">Hit or Stand</div>);
                 break;
             case "win":
-                return (<div className="alert alert-success" role="alert">Win Win Win</div>);
+                return (<div className="alert alert-success" role="alert">You win!</div>);
                 break;
             case "lose":
                 return (<div className="alert alert-danger" role="alert">You Lose</div>);
