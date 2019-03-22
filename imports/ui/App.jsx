@@ -66,7 +66,7 @@ class HomeComponent extends Component {
   render(){
         return (
         <div>
-          <h1>Meteor chat</h1>
+          <h1>Black Jack</h1>
 
           {             Meteor.user()  ? 
 

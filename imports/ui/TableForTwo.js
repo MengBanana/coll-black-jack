@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Meteor } from "meteor/meteor";
 import { Matches } from '../api/matches.js';
 import { Games } from "../api/games.js";
-import Interface from './Interface.js';
+import InterfaceTwo from './InterfaceTwo.js';
 import { withTracker } from 'meteor/react-meteor-data';
 
 import Hand from './Hand.js';
@@ -280,30 +280,30 @@ class TableForTwo extends Component{
 
 	}
 	handleStandButt1(){
-		var dealerHand = this.state.dealer;
-		var deck = this.state.deck;
+		// var dealerHand = this.state.dealer;
+		// var deck = this.state.deck;
 
 
-		var dealerScore = this.getScore(dealerHand);
-        var playerScore = this.getScore(this.state.player1);
-        var dealerHasCharlie = false;
+		// var dealerScore = this.getScore(dealerHand);
+        //var playerScore = this.getScore(this.state.player1);
+  //       var dealerHasCharlie = false;
 
-        while (dealerScore < playerScore || dealerScore <= 17) {
+  //       while (dealerScore < playerScore || dealerScore <= 17) {
 
-            dealerHand.push(deck.pop());
-            dealerScore = this.getScore(dealerHand);
+  //           dealerHand.push(deck.pop());
+  //           dealerScore = this.getScore(dealerHand);
 
-            if(dealerScore < 21 && dealerHand.length == 5){
-                dealerHasCharlie = true;
-                break;
-            }
+  //           if(dealerScore < 21 && dealerHand.length == 5){
+  //               dealerHasCharlie = true;
+  //               break;
+  //           }
 
-        }
-        this.setState({
-            dealer :  dealerHand,
-            deck : deck,
-            status1 : (dealerScore < 21 || dealerHasCharlie) ? 'lose' : 'win'
-        });
+  //       }
+  //       this.setState({
+  //           dealer :  dealerHand,
+  //           deck : deck,
+  //           status1 : (dealerScore < 21 || dealerHasCharlie) ? 'lose' : 'win'
+  //       });
         //this.renderPlayer2button();
         this.changeGame(this.state.dealer,this.state.player1, this.state.player2);
 	}
@@ -370,10 +370,9 @@ class TableForTwo extends Component{
 					{
 						renderplayer1 ? 
 						<div>
-						<Interface
+						<InterfaceTwo
 	                    playerscore={this.getScore(this.state.player1)}
 	                    dealerscore={this.getScore(this.state.dealer)}
-	                    deal={this.handleDealButt1}
 	                    hit={this.handleHitButt1}
 	                    stand={this.handleStandButt1}
 	                    status={this.state.status1}
@@ -391,10 +390,9 @@ class TableForTwo extends Component{
 					{
 						renderplayer2 ? 
 						<div>
-						<Interface
+						<InterfaceTwo
 	                    playerscore={this.getScore(this.state.player2)}
 	                    dealerscore={this.getScore(this.state.dealer)}
-	                    deal={this.handleDealButt2}
 	                    hit={this.handleHitButt2}
 	                    stand={this.handleStandButt2}
 	                    status={this.state.status2}

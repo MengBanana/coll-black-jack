@@ -78,20 +78,11 @@ export default class Table extends React.Component{
 
 	handleDealButt(){
 		
-		//if(this.state.deck == 'undefined') console.log("not right")
-		//console.log(this.state.deck)
 		
 		console.log(this.state.deck)
 		var newcount = this.state.count + 1;
 		var deck = this.state.deck;
-		// var nexdeck = []
-		// if(deck.length < 5){
-		// 	var size = deck.length;
-		// 	while(size > 0){
-		// 		size -= 1;
-		// 		nexdeck.push(deck.pop());
-		// 	}
-		// }
+		
 		var card1 = deck.pop();
 		var card2 = deck.pop();
 		var card3 = deck.pop();
@@ -102,11 +93,7 @@ export default class Table extends React.Component{
 		newplayer.push(card2);
 		var newdealer = [];
 		newdealer.push(card3);
-		// nexdeck.push(card1);
-		// nexdeck.push(card2);
-		// nexdeck.push(card4);
-		// nexdeck.push(card4);
-		//console.log(newPlayerscore)
+		
 		this.setState({
 			player: newplayer,
 			dealer: newdealer,
@@ -144,15 +131,12 @@ export default class Table extends React.Component{
         var playerScore = this.getScore(this.state.player);
         var dealerHasCharlie = false;
 
-        // compute game status while dealing cards to the dealer
         while (dealerScore < playerScore || dealerScore <= 17) {
 
-            // deal a card
             dealerHand.push(deck.pop());
             dealerScore = this.getScore(dealerHand);
 
             if(dealerScore < 21 && dealerHand.length == 5){
-                // five card charlie
                 dealerHasCharlie = true;
                 break;
             }
@@ -161,7 +145,6 @@ export default class Table extends React.Component{
         this.setState({
             dealer :  dealerHand,
             deck : deck,
-            // compute game status
             status : (dealerScore < 21 || dealerHasCharlie) ? 'lose' : 'win'
         });
 	}
@@ -170,8 +153,7 @@ export default class Table extends React.Component{
 	render(){
 		return(	
 				<div>
-				<h1>console.log("167")</h1>
-				console.log(this.deck);
+				Welcome To Black Jack
 				<Hand
                     showDeck={true}
                     hand={this.state.dealer}

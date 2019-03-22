@@ -14,7 +14,7 @@ export default class Hand extends React.Component{
 	render(){
 		return(
 			<div>
-				<h1>Hand Component</h1>
+				<h1>Hand</h1>
 				{this.props.showDeck ? <Card hidden={true}/> : ''}
 
 

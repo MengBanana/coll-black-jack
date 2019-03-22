@@ -60,7 +60,7 @@ class Lobby extends React.Component {
 		return(
 			<div>
 				<Button
-		            className="newGame-btt"
+		            
 		            onClick={this.createNewGame.bind(this)}
 		          >
 		          	Create a new Game?
@@ -86,7 +86,6 @@ Lobby.propTypes = {
 
 export default withTracker(() => {
 	  Meteor.subscribe('games');
-	  console.log("89 in lobby");
 	  return {
 
 	    games: Games.find({
