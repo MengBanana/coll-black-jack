@@ -19,10 +19,7 @@ Then run meteor
 [web-page](https://black-jack-web.herokuapp.com/)
 
 ## Screenshots:
-![](screenshot/img1.png)
-![](screenshot/img2.png)
-![](images/screen3.png)
-![](images/screen4.png)
+![](Screen Shot For P3.png)
 
 
 ## License
